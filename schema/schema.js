@@ -8,6 +8,9 @@ const {
   GraphQLList
 } = graphql;
 const _ = require("lodash");
+const Book = require("../models/book");
+const Author = require("../models/author");
+
 //DummyData
 var books = [
   { name: "HP1", genre: "Fantasy", id: "1", authorId: "1" },
