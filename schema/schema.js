@@ -9,11 +9,11 @@ const {
 const _ = require("lodash");
 //DummyData
 var books = [
-  { name: "HP1", genre: "Fantasy", id: "1" },
-  { name: "HP2", genre: "Fantasy", id: "2" },
-  { name: "HP4", genre: "Fiction", id: "4" },
-  { name: "HP5", genre: "Fiction", id: "5" },
-  { name: "HP3", genre: "Fantasy", id: "3" }
+  { name: "HP1", genre: "Fantasy", id: "1", authorId: "1" },
+  { name: "HP2", genre: "Fantasy", id: "2", authorId: "2" },
+  { name: "HP4", genre: "Fiction", id: "4", authorId: "3" },
+  { name: "HP5", genre: "Fiction", id: "5", authorId: "4" },
+  { name: "HP3", genre: "Fantasy", id: "3", authorId: "1" }
 ];
 var authors = [
   { name: "Asnim", age: 44, id: "1" },
@@ -26,7 +26,11 @@ const BookType = new GraphQLObjectType({
   fields: () => ({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
-    genre: { type: GraphQLString }
+    genre: { type: GraphQLString },
+    author: {
+      type: AuthorType,
+      resolve: (parent, args) => _.find(authors, { id: parent.authorId })
+    }
   })
 });
 const AuthorType = new GraphQLObjectType({
